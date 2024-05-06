@@ -7,6 +7,8 @@ import {
   getproductsByCategory,
   getproductsByBrand,
 } from "../controllers/product/fetch.js";
+import { update } from "../controllers/product/update.js";
+import { deleteProd } from "../controllers/product/delete.js";
 
 const router = express.Router();
 
@@ -27,5 +29,11 @@ router.get("/category/:id", getproductsByCategory);
 
 // get products by brand id
 router.get("/brand/:id", getproductsByBrand);
+
+// update product
+router.put("/update/:id", update);
+
+// delete product
+router.delete("/delete/:id", deleteProd);
 
 export default router;

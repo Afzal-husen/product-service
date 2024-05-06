@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { RequestBody } from "../../../types/brand.js";
 import { product } from "../collections/index.js";
+import { Request } from "express";
 
 interface DocumentAggregation {
   [key: string]: any;
@@ -33,4 +34,15 @@ export const findAll = async (
 
 export const findOne = async (id: string) => {
   return await product.findOne({ _id: new ObjectId(id) });
+};
+
+export const updateOne = async (id: string, body: Request) => {
+  await product.updateOne({ _id: new ObjectId(id) }, { $set: { ...body } });
+  const updatedProduct = await product.findOne({ _id: new ObjectId(id) });
+  return updatedProduct;
+};
+
+export const deleteOne = async (id: string) => {
+  const result = await product.deleteOne({ _id: new ObjectId(id) });
+  return result;
 };
